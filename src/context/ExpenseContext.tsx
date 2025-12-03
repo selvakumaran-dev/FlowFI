@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
 import type { Expense, Budget, Category } from '@/types/expense'
 import {
     getExpenses,
@@ -14,7 +14,7 @@ import {
     updateCategory as updateCategoryDb,
     deleteCategory as deleteCategoryDb,
     migrateData,
-    importExpenses as importExpensesDb
+    importExpenses
 } from '@/lib/storage'
 import { generateRecurringExpenses } from '@/lib/recurring'
 import { useToast } from '@/components/Toast'
@@ -51,7 +51,7 @@ export function ExpenseProvider({ children }: { children: ReactNode }) {
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState(true)
     // Force re-render when history changes
-    const [historyVersion, setHistoryVersion] = useState(0)
+    const [, setHistoryVersion] = useState(0)
     const { showSuccess, showError, showInfo } = useToast()
 
     const loadData = () => {
@@ -270,9 +270,15 @@ export function ExpenseProvider({ children }: { children: ReactNode }) {
 
     const importData = async (file: File) => {
         try {
-            await importExpensesDb(file)
-            refreshData()
-            showSuccess('Import Successful', 'Data imported successfully')
+            const text = await file.text()
+            const data = JSON.parse(text)
+            if (data.expenses && Array.isArray(data.expenses)) {
+                importExpenses(data.expenses)
+                refreshData()
+                showSuccess('Import Successful', 'Data imported successfully')
+            } else {
+                throw new Error('Invalid file format')
+            }
         } catch (error) {
             console.error('Import failed:', error)
             showError('Import Failed', 'Could not import data')

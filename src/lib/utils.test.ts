@@ -37,12 +37,12 @@ describe('Utils', () => {
 
         it('calculates total expenses correctly', () => {
             const stats = calculateStats(mockExpenses, mockBudgets)
-            expect(stats.totalExpenses).toBe(1500)
+            expect(stats.total).toBe(1500)
         })
 
         it('calculates category breakdown correctly', () => {
             const stats = calculateStats(mockExpenses, mockBudgets)
-            expect(stats.categoryBreakdown).toEqual({
+            expect(stats.byCategory).toEqual({
                 Food: 500,
                 Transport: 1000
             })

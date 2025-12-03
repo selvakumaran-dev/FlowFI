@@ -1,4 +1,4 @@
-import type { Expense, Category } from '@/types/expense'
+import type { Expense } from '@/types/expense'
 import { useState } from 'react'
 import { Download, Trash2, Edit2, Repeat, ChevronUp, ChevronDown, Camera, X } from 'lucide-react'
 import { format, parseISO } from 'date-fns'

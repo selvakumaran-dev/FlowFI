@@ -12,8 +12,8 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 
 export default function DataManager() {
-    const { expenses, importData, refreshData } = useExpense()
-    const { showSuccess, showError, showWarning, showInfo } = useToast()
+    const { expenses, refreshData } = useExpense()
+    const { showSuccess, showError, showWarning } = useToast()
     const [showClearConfirm, setShowClearConfirm] = useState(false)
     const [importPreview, setImportPreview] = useState<{ expenses: Expense[], validation: ValidationResult } | null>(null)
     const [exportDateFrom, setExportDateFrom] = useState('')

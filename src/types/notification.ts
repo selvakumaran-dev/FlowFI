@@ -10,14 +10,13 @@ export interface NotificationItem {
     amount?: number
 }
 
-export enum NotificationType {
-    DAILY_REMINDER = 'DAILY_REMINDER',
-    BUDGET_WARNING = 'BUDGET_WARNING',
-    BUDGET_EXCEEDED = 'BUDGET_EXCEEDED',
-    STREAK_MILESTONE = 'STREAK_MILESTONE',
-    WEEKLY_SUMMARY = 'WEEKLY_SUMMARY',
-    EXPENSE_ADDED = 'EXPENSE_ADDED',
-}
+export type NotificationType =
+    | 'DAILY_REMINDER'
+    | 'BUDGET_WARNING'
+    | 'BUDGET_EXCEEDED'
+    | 'STREAK_MILESTONE'
+    | 'WEEKLY_SUMMARY'
+    | 'EXPENSE_ADDED'
 
 export interface NotificationSettings {
     dailyReminders: {
